@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="最近重温了下Flex，发现不用的话很快就会忘记，所以除了用传统的笔记外，再在blog上敲一下加深下印象。 ：） 一个弹性盒布局是这样的： W3C上给出的图片：  个人感觉MDN给的图片看着更清楚：  1 兼容性a. IE 8，9都不支持，10是要写 display: flexbox; b. Chrome 20- &#x2F; Safari 3.1+ &#x2F; Firefox 2-21 &#x2F; Android 2.1+">
+<meta name="keywords" content="flex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flex小结">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2015&#x2F;12&#x2F;30&#x2F;flex%E5%B0%8F%E7%BB%93&#x2F;index.html">
+<meta property="og:site_name" content="CocoLocal&#39;s Blog">
+<meta property="og:description" content="最近重温了下Flex，发现不用的话很快就会忘记，所以除了用传统的笔记外，再在blog上敲一下加深下印象。 ：） 一个弹性盒布局是这样的： W3C上给出的图片：  个人感觉MDN给的图片看着更清楚：  1 兼容性a. IE 8，9都不支持，10是要写 display: flexbox; b. Chrome 20- &#x2F; Safari 3.1+ &#x2F; Firefox 2-21 &#x2F; Android 2.1+">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150614222502311">
+<meta property="og:image" content="https:&#x2F;&#x2F;mdn.mozillademos.org&#x2F;files&#x2F;3739&#x2F;flex_terms.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150616140933077">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150616144249372">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150616151746589">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150616163037523">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150616152600533">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150616144249372">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150616162253991">
+<meta property="og:image" content="http:&#x2F;&#x2F;image.zhangxinxu.com&#x2F;image&#x2F;blog&#x2F;200911&#x2F;base_line.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150616153319255">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150616160709459">
+<meta property="og:updated_time" content="2019-11-22T20:56:27.875Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20150614222502311">
+
+<link rel="canonical" href="http://yoursite.com/2015/12/30/flex%E5%B0%8F%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Flex小结 | CocoLocal's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CocoLocal's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Records.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/12/30/flex%E5%B0%8F%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CocoLocal">
+      <meta itemprop="description" content="Records.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CocoLocal's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flex小结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-12-30 20:40:49" itemprop="dateCreated datePublished" datetime="2015-12-30T20:40:49+01:00">2015-12-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-22 21:56:27" itemprop="dateModified" datetime="2019-11-22T21:56:27+01:00">2019-11-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近重温了下Flex，发现不用的话很快就会忘记，所以除了用传统的笔记外，再在blog上敲一下加深下印象。 ：）</p>
+<p>一个弹性盒布局是这样的：</p>
+<p>W3C上给出的图片：</p>
+<p><img src="http://img.blog.csdn.net/20150614222502311" alt="弹性盒布局W3C"></p>
+<p>个人感觉MDN给的图片看着更清楚：</p>
+<p><img src="https://mdn.mozillademos.org/files/3739/flex_terms.png" alt="弹性盒布局"></p>
+<h3 id="1-兼容性"><a href="#1-兼容性" class="headerlink" title="1 兼容性"></a>1 兼容性</h3><p>a. IE 8，9都不支持，10是要写 display: flexbox;</p>
+<p>b. Chrome 20- / Safari 3.1+ / Firefox 2-21 / Android 2.1+ / iOS 3.2+ 都是09年旧的语法，需要写 display: box;</p>
+<p>c. Chrome 21+ / Safari 6.1+ / Opera 12.1+ / IE 11+ / Android 4.4+ / iOS 7.1+ 都可采用新的 display: flex；</p>
+<h3 id="2-Flex-Container"><a href="#2-Flex-Container" class="headerlink" title="2 Flex Container"></a>2 Flex Container</h3><p><code>display: flex | inline-flex;</code></p>
+<p><code>flex-direction: row | row-reverse | column | column-reverse;</code><br><img src="http://img.blog.csdn.net/20150616140933077" alt="flex-direction"><br><code>flex-wrap: nowrap | wrap | wrap-reverse;</code><br><img src="http://img.blog.csdn.net/20150616144249372" alt="flex-wrap"><br><code>flex-flow: &lt;&#39;flex-direction&#39;&gt; || &lt;&#39;flex-wrap&#39;&gt;;</code></p>
+<p><code>justify-content: flex-start | flex-end | center | space-between | space-around;</code><br><img src="http://img.blog.csdn.net/20150616151746589" alt="justify-content"><br><code>align-content: flex-start | flex-end | center | space-between | space-around | stretch;</code><br><img src="http://img.blog.csdn.net/20150616163037523" alt="align-content"><br><code>align-items: flex-start | flex-end | center | baseline | stretch;</code><br><img src="http://img.blog.csdn.net/20150616152600533" alt="align-items"></p>
+<h3 id="3-Flex-items"><a href="#3-Flex-items" class="headerlink" title="3 Flex items"></a>3 Flex items</h3><p><code>order: &#39;integer&#39;;</code></p>
+<p><img src="http://img.blog.csdn.net/20150616144249372" alt="order"></p>
+<p><code>align-self: auto | flex-start | flex-end | center | baseline | stretch;</code></p>
+<p><img src="http://img.blog.csdn.net/20150616162253991" alt="align-self"></p>
+<p>关于Baseline:</p>
+<p><img src="http://image.zhangxinxu.com/image/blog/200911/base_line.jpg" alt="baseline"></p>
+<p><code>flex-grow: &#39;number&#39;; /* default 0 */</code></p>
+<p><img src="http://img.blog.csdn.net/20150616153319255" alt="flex-grow"></p>
+<p><code>flex-shrink: &#39;number&#39;; /* default 1 */</code></p>
+<p>根据需要用来定义伸缩项目收缩的能力。[注意：负值同样生效。]</p>
+<p><code>flex-basis: &#39;length&#39; | auto; /* default auto */</code></p>
+<p><img src="http://img.blog.csdn.net/20150616160709459" alt="flex-basis"></p>
+<p><code>flex: none | [&lt;&#39;flex-grow&#39;&gt; &lt;&#39;flex-shrink&#39;&gt; ?|| &lt;&#39;flex-basis&#39;&gt;] /* default: 0 1 auto */</code></p>
+<p>相关资料：</p>
+<ol>
+<li><p><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noopener">https://css-tricks.com/snippets/css/a-guide-to-flexbox/</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes</a></p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000002910324" target="_blank" rel="noopener">https://segmentfault.com/a/1190000002910324</a></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flex/" rel="tag"># flex</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2015/11/17/Reindent%20Text%20in%20Sublime/" rel="next" title="Reindent Text in Sublime">
+                  <i class="fa fa-chevron-left"></i> Reindent Text in Sublime
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/11/22/JavaScript%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%97%AD%E5%8C%85/" rel="prev" title="JavaScript 学习笔记——闭包">
+                  JavaScript 学习笔记——闭包 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-兼容性"><span class="nav-number">1.</span> <span class="nav-text">1 兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Flex-Container"><span class="nav-number">2.</span> <span class="nav-text">2 Flex Container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Flex-items"><span class="nav-number">3.</span> <span class="nav-text">3 Flex items</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="CocoLocal"
+    src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">CocoLocal</p>
+  <div class="site-description" itemprop="description">Records.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CocoLocal</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
